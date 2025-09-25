@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background to contrast with the dark phone */
+        }
+        .bg-custom-screen {
+            background-color: #fdf2f8; /* Changed to light pink like previous designs */
+        }
+        
+        /* --- Phone Mockup & App Screen Adjustments --- */
+        .phone-mockup-frame {
+            width: 375px;
+            height: 620px; 
+            border-radius: 50px;
+            border: 12px solid black;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-screen-content {
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* --- Notch & Status Bar --- */
+        .phone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 30px;
+            background-color: black;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .status-bar {
+            padding-top: 30px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 5;
+            color: #555; /* Changed to dark grey for light background */
+        }
+        
+        /* --- Search Bar --- */
+        .search-bar {
+            background-color: #f3f4f6; /* Changed to light grey */
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .search-bar input {
+            background-color: transparent;
+            color: #374151; /* Changed to dark grey */
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+        .search-bar input::placeholder {
+            color: #9ca3af; /* Changed to a medium grey */
+        }
+        
+        /* --- Payment List --- */
+        .payment-list {
+            overflow-y: auto;
+            scrollbar-width: none; /* For Firefox */
+            -ms-overflow-style: none; /* For Internet Explorer and Edge */
+        }
+        .payment-list::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+        .payment-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .user-icon {
+            color: #9ca3af; /* Changed to medium grey */
+            font-size: 1.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* --- Receipt Card --- */
+        .receipt-card {
+            background-color: #f5f5f5;
+            border-radius: 16px;
+            padding: 0.75rem;
+            flex-grow: 1;
+        }
+        .receipt-header {
+            color: #525252;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .receipt-details {
+            background-color: #0ea5e9; /* Sky blue from image */
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .detail-row .label {
+            color: #e0f2fe;
+            font-weight: 400;
+        }
+        .detail-row .value {
+            font-weight: 600;
+        }
+        .receipt-ok-btn {
+            background-color: #7dd3fc;
+            color: #0369a1;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* --- Footer Button --- */
+        .btn-close-footer {
+            background-color: #e5e7eb; /* Changed to light grey */
+            color: #4b5563; /* Changed to dark grey */
+            font-weight: 600;
+            padding: 0.85rem 0;
+            width: 120px;
+            border-radius: 9999px;
+            margin: 0 auto; /* Center the button */
+        }
+
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="phone-mockup-frame mx-auto bg-black">
+        <div class="phone-notch"></div>
+
+        <div class="bg-custom-screen app-screen-content">
+            
+            <!-- Status Bar -->
+            <div class="status-bar flex justify-between items-center px-2">
+                <span class="font-bold text-sm">8:00</span>
+                <div class="flex items-center space-x-2 text-xs">
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex-grow flex flex-col" style="min-height: 0;">
+                <!-- Header -->
+                <div class="mb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">Payment Details</h1>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="mb-6 search-bar">
+                    <i class="fas fa-search text-gray-400"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+
+                <!-- Payment List -->
+                <div class="flex-grow payment-list">
+                    
+                    <!-- Item 1 -->
+                    <div class="payment-item">
+                        <i class="fas fa-user-circle user-icon"></i>
+                        <div class="receipt-card">
+                            <p class="receipt-header">Your transfer to SID successful</p>
+                            <div class="receipt-details">
+                                <div class="detail-row"><span class="label">Amount</span> <span class="value">Nu. 50.00</span></div>
+                                <div class="detail-row"><span class="label">To</span> <span class="value">Mr. 1622</span></div>
+                                <div class="detail-row"><span class="label">From</span> <span class="value">21100XXXX</span></div>
+                                <div class="detail-row"><span class="label">Remarks</span> <span class="value">K</span></div>
+                                <div class="detail-row"><span class="label">Date</span> <span class="value">15 May 2025</span></div>
+                                <div class="detail-row"><span class="label">Time</span> <span class="value">08:58:37 PM</span></div>
+                                <div class="receipt-ok-btn">Ok</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="payment-item">
+                        <i class="fas fa-user-circle user-icon"></i>
+                        <div class="receipt-card">
+                            <p class="receipt-header">Your transfer to SID successful</p>
+                            <div class="receipt-details">
+                                <div class="detail-row"><span class="label">Amount</span> <span class="value">Nu. 50.00</span></div>
+                                <div class="detail-row"><span class="label">To</span> <span class="value">Mr. 1622</span></div>
+                                <div class="detail-row"><span class="label">From</span> <span class="value">21100XXXX</span></div>
+                                <div class="detail-row"><span class="label">Remarks</span> <span class="value">K</span></div>
+                                <div class="detail-row"><span class="label">Date</span> <span class="value">15 May 2025</span></div>
+                                <div class="detail-row"><span class="label">Time</span> <span class="value">08:58:37 PM</span></div>
+                                <div class="receipt-ok-btn">Ok</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="payment-item">
+                        <i class="fas fa-user-circle user-icon"></i>
+                        <div class="receipt-card">
+                            <p class="receipt-header">Your transfer to SID successful</p>
+                            <div class="receipt-details">
+                                <div class="detail-row"><span class="label">Amount</span> <span class="value">Nu. 50.00</span></div>
+                                <div class="detail-row"><span class="label">To</span> <span class="value">Mr. 1622</span></div>
+                                <div class="detail-row"><span class="label">From</span> <span class="value">21100XXXX</span></div>
+                                <div class="detail-row"><span class="label">Remarks</span> <span class="value">K</span></div>
+                                <div class="detail-row"><span class="label">Date</span> <span class="value">15 May 2025</span></div>
+                                <div class="detail-row"><span class="label">Time</span> <span class="value">08:58:37 PM</span></div>
+                                <div class="receipt-ok-btn">Ok</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Footer Buttons -->
+                <div class="mt-auto pt-4 flex justify-center items-center">
+                    <button class="btn-close-footer">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+

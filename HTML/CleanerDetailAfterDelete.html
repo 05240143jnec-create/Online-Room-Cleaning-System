@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaner Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #333; /* A dark background to make the phone pop */
+        }
+        .bg-custom-screen {
+            background-color: #fce7f3; /* Light pink background from the image */
+        }
+        
+        /* --- Phone Mockup & App Screen Adjustments --- */
+        .phone-mockup-frame {
+            width: 375px;
+            height: 620px; 
+            border-radius: 50px;
+            border: 12px solid black;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-screen-content {
+            padding: 1rem 1.5rem; /* Adjusted horizontal padding */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* --- Notch & Status Bar --- */
+        .phone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 30px;
+            background-color: black;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .status-bar {
+            padding-top: 30px;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 5;
+            color: #555;
+        }
+        
+        /* --- Footer Button --- */
+        .btn-back-footer {
+            background-color: #dbeafe;
+            color: #3b82f6;
+            font-weight: 600;
+            padding: 0.85rem 0;
+            width: 120px;
+            border-radius: 9999px;
+            /* margin: 0 auto; removed to allow for space-between layout */
+        }
+        
+        /* --- Cleaner List Styles --- */
+        .cleaner-list-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.4fr 1.2fr 0.3fr;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .cleaner-header {
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.8rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f9a8d4;
+        }
+        
+        .cleaner-row {
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.85rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #fbcfe8;
+        }
+        
+        .delete-icon {
+            color: #9ca3af;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .delete-icon:hover {
+            color: #ef4444;
+        }
+        
+        /* --- Modal Styles --- */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #e5e7eb;
+            padding: 2.5rem;
+            border-radius: 30px;
+            width: 85%;
+            text-align: center;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-buttons {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .modal-btn {
+            font-weight: 600;
+            padding: 0.65rem 0;
+            width: 100%;
+            border-radius: 12px;
+            transition: background-color 0.2s ease;
+        }
+        .btn-cancel {
+            background-color: transparent;
+            color: #4b5563;
+        }
+        .btn-delete {
+            background-color: transparent;
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="phone-mockup-frame mx-auto bg-black">
+        <div class="phone-notch"></div>
+
+        <div class="bg-custom-screen app-screen-content">
+            
+            <!-- Status Bar -->
+            <div class="status-bar flex justify-between items-center text-gray-900 px-2">
+                <span class="font-bold text-sm">8:00</span>
+                <div class="flex items-center space-x-2 text-xs">
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex-grow flex flex-col">
+                <!-- Header -->
+                <div class="mb-6">
+                    <h1 class="text-3xl font-bold text-gray-800">Cleaner Details</h1>
+                </div>
+
+                <!-- Cleaner List -->
+                <div id="cleanerList" class="flex-grow overflow-y-auto pr-2">
+                    <!-- Table Header -->
+                    <div class="cleaner-list-grid cleaner-header">
+                        <div>Name</div>
+                        <div>User Id</div>
+                        <div>No of Room Cleaned</div>
+                        <div></div>
+                    </div>
+                    
+                    <!-- Table Rows -->
+                    <div class="cleaner-list-grid cleaner-row">
+                        <div>Tashi</div>
+                        <div>tashi@gmail.com</div>
+                        <div class="text-center">7</div>
+                        <div><i class="fas fa-trash-alt delete-icon"></i></div>
+                    </div>
+                    
+                    <div class="cleaner-list-grid cleaner-row">
+                        <div>Karma</div>
+                        <div>karma@gmail.com</div>
+                        <div class="text-center">5</div>
+                        <div><i class="fas fa-trash-alt delete-icon"></i></div>
+                    </div>
+
+                    <div class="cleaner-list-grid cleaner-row">
+                        <div>Tenzin</div>
+                        <div>tenzin@gmail.com</div>
+                        <div class="text-center">8</div>
+                        <div><i class="fas fa-trash-alt delete-icon"></i></div>
+                    </div>
+
+                    <div class="cleaner-list-grid cleaner-row">
+                        <div>Norbu</div>
+                        <div>norbu@gmail.com</div>
+                        <div class="text-center">2</div>
+                        <div><i class="fas fa-trash-alt delete-icon"></i></div>
+                    </div>
+
+                </div>
+                
+                <!-- Footer Buttons -->
+                <div class="mt-auto pt-6 flex justify-between items-center">
+                    <button class="btn-back-footer">
+                        Back
+                    </button>
+                    <i class="fas fa-home text-3xl text-gray-800 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="deleteModal" class="modal-overlay">
+            <div class="modal-content">
+                <h3 class="text-2xl font-bold text-gray-800">Delete</h3>
+                <p class="text-gray-600 mt-2 text-lg">Are you sure?</p>
+                <div class="modal-buttons">
+                    <button class="modal-btn btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button class="modal-btn btn-delete" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('deleteModal');
+        let rowToDelete = null;
+
+        function openModal(rowElement) {
+            rowToDelete = rowElement;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            rowToDelete = null;
+        }
+        
+        function confirmDelete() {
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+            closeModal();
+        }
+        
+        // Use event delegation for cleaner code
+        const cleanerList = document.getElementById('cleanerList');
+        cleanerList.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-icon')) {
+                const row = event.target.closest('.cleaner-row');
+                if (row) {
+                    openModal(row);
+                }
+            }
+        });
+        
+        // Close modal if overlay is clicked
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
+

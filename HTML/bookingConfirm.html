@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #333; /* A dark background to make the phone pop */
+        }
+        .bg-custom-screen {
+            background-color: #eef3f6; /* Very light blue-gray from the image */
+        }
+        
+        /* --- Phone Mockup & App Screen Adjustments --- */
+        .phone-mockup-frame {
+            width: 375px;
+            height: 620px; 
+            border-radius: 50px;
+            border: 12px solid black;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-screen-content {
+            padding: 1rem 1.75rem; /* More horizontal padding */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* --- Notch & Status Bar --- */
+        .phone-notch {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 30px;
+            background-color: black;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        .status-bar {
+            padding-top: 30px;
+            margin-bottom: 2rem; /* More space below status bar */
+            position: relative;
+            z-index: 5;
+            color: #555; /* Dark gray for status icons/text */
+        }
+        
+        /* --- Custom Button Styles --- */
+        .btn-history {
+            background-color: #e0e5e9; /* Light gray for history button */
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px; /* Pill shape */
+        }
+        
+        .btn-back {
+            background-color: #4cd964; /* Bright green from the image */
+            color: white;
+            font-weight: 600;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px; /* Pill shape */
+            box-shadow: 0 4px 14px 0 rgba(76, 217, 100, 0.39);
+        }
+        
+        /* --- Booking List Styles --- */
+        .booking-list-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.2fr; /* Adjusted column widths */
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .booking-header {
+            color: #6b7280; /* Muted gray for headers */
+            font-weight: 500;
+            font-size: 0.875rem; /* text-sm */
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #d1d5db;
+        }
+        
+        .booking-row {
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .status-completed {
+            background-color: #d8d8f6; /* Light purple from the image */
+            color: #5856d6; /* Darker purple for text */
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 0.75rem; /* text-xs */
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="phone-mockup-frame mx-auto bg-black">
+        <div class="phone-notch"></div>
+
+        <div class="bg-custom-screen app-screen-content">
+            
+            <!-- Status Bar -->
+            <div class="status-bar flex justify-between items-center text-gray-900 px-2">
+                <span class="font-bold text-sm">8:00</span>
+                <div class="flex items-center space-x-2 text-xs">
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="flex-grow flex flex-col">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="text-2xl font-bold text-gray-800">Booking Details</h1>
+                    <button class="btn-history">History</button>
+                </div>
+
+                <!-- Bookings List -->
+                <div class="flex-grow">
+                    <!-- Table Header -->
+                    <div class="booking-list-grid booking-header">
+                        <div>Room</div>
+                        <div>Date</div>
+                        <div>Time</div>
+                        <div>Status</div>
+                    </div>
+                    
+                    <!-- Table Rows -->
+                    <div class="booking-list-grid booking-row">
+                        <div>NB-2-14</div>
+                        <div>23 May</div>
+                        <div>2:30 PM</div>
+                        <div><span class="status-completed">Completed</span></div>
+                    </div>
+                    
+                    <div class="booking-list-grid booking-row">
+                        <div>JD-3-4</div>
+                        <div>12 May</div>
+                        <div>9:30 AM</div>
+                        <div><span class="status-completed">Completed</span></div>
+                    </div>
+
+                    <div class="booking-list-grid booking-row">
+                        <div>DA-2-6</div>
+                        <div>2 May</div>
+                        <div>8:30 AM</div>
+                        <div><span class="status-completed">Completed</span></div>
+                    </div>
+                </div>
+                
+                <!-- Footer Button -->
+                <div class="mt-auto pt-6 text-center">
+                    <button class="btn-back">
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
