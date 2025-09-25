@@ -1,0 +1,136 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #e0f2f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjusted width */
+    height: auto;
+    text-align: center;
+    position: relative;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.login-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rotating-logo {
+    width: 180px;
+    height: auto;
+    animation: rotate 4s linear infinite;
+}
+
+.login-title {
+    color: #00796b;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #b2dfdb;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #004d40;
+}
+
+.input-group input::placeholder {
+    color: #b2dfdb;
+}
+
+.input-group input:focus {
+    border-color: #004d40;
+    outline: none;
+}
+
+.show-password-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    color: #004d40;
+    font-size: 14px;
+    width: 100%;
+}
+
+.show-password-container input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #004d40;
+}
+
+.sign-in-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #00796b;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-button:hover {
+    background-color: #004d40;
+}
+
+.links-container {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.forgot-link {
+    color: #004d40;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #00796b;
+    text-decoration: underline;
+}
+
+.signup-text {
+    margin-top: 10px;
+    color: #004d40;
+}
+
+.signup-link {
+    color: #00796b;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #004d40;
+    text-decoration: underline;
+}
