@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .app-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 500px;
+            max-height: 90vh;
+            width: 90%;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-section {
+            padding: 1.5rem;
+            background-color: white;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0 1.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .rating-stars .filled {
+            color: gold;
+        }
+
+        .rating {
+            display: inline-block;
+            direction: rtl;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            float: right;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.2s;
+        }
+
+        .rating label:before {
+            content: '\2605';
+            font-size: 2.5rem;
+            padding: 0 0.2rem;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: gold;
+        }
+
+        .bottom-nav {
+            padding: 1.5rem 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="app-container">
+        <!-- Back button positioned at the top left -->
+        <div class="p-4">
+            <a href="../HTML/user_dashbord.html" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </a>
+        </div>
+
+        <div class="header-section">
+            <div class="flex items-center justify-center mb-4">
+                <img src="../images/logo.jpg" alt="App Logo" class="app-logo w-16 h-16 rounded-full border-2 border-gray-300 mr-4">
+                <h1 class="main-title text-2xl font-bold text-gray-800">Service Feedback</h1>
+            </div>
+            
+            <div class="logo-text text-sm leading-tight text-gray-500 text-center"> </div>
+        </div>
+
+        <div class="main-content">
+            <div class="feedback-form-section mb-6 bg-gray-50 p-6 rounded-xl shadow-sm">
+                <div id="status-message" class="hidden p-3 mb-4 rounded-md text-sm"></div>
+                
+                <div class="flex flex-col items-center mb-6">
+                    <p class="text-sm text-black-600 mb-2">How would you rate the service?</p>
+                    <div class="rating">
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <textarea id="comment-box" rows="4" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm" placeholder="Enter your comments..."></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button id="submit-feedback-btn" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+            <div class="feedback-section">
+                <h2 class="text-lg font-semibold text-gray-800 mb-6">Feedback History</h2>
+                <table class="feedback-table w-full border-collapse text-sm text-gray-700">
+                    <thead>
+                        <tr class="border-b-2 border-gray-300 text-left">
+                            <th class="py-2 px-2">Date</th>
+                            <th class="py-2 px-2">Rating</th>
+                            <th class="py-2 px-2">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedback-history-body">
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">25 May 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Missed the corners a bit</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">29 May 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Good job. Very neat.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">30 May 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Perfect cleaning!</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">1 Jun 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">A bit dusty.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">5 Jun 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Excellent service.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">15 Jun 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Needs improvement.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-3 px-2">20 Jun 2025</td>
+                            <td class="py-3 px-2">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                </span>
+                            </td>
+                            <td class="py-3 px-2">Five stars!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bottom-nav flex justify-around items-center">
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-arrow-left text-xl"></i>
+                <span class="text-xs">Back</span>
+            </a>
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">Home</span>
+            </a>
+        </div>
+    </div>
+    <script>
+        const statusMessage = document.getElementById('status-message');
+        const submitBtn = document.getElementById('submit-feedback-btn');
+        const starRatings = document.querySelectorAll('input[name="rating"]');
+        const commentBox = document.getElementById('comment-box');
+        const feedbackHistoryBody = document.getElementById('feedback-history-body');
+
+        // Function to show a temporary status message
+        function showStatus(message, type = 'success') {
+            statusMessage.textContent = message;
+            statusMessage.classList.remove('hidden', 'bg-red-200', 'text-red-800', 'bg-green-200', 'text-green-800');
+            if (type === 'success') {
+                statusMessage.classList.add('bg-green-200', 'text-green-800');
+            } else {
+                statusMessage.classList.add('bg-red-200', 'text-red-800');
+            }
+            statusMessage.classList.remove('hidden');
+        }
+
+        submitBtn.addEventListener('click', () => {
+            let selectedRating = null;
+            starRatings.forEach(star => {
+                if (star.checked) {
+                    selectedRating = star.value;
+                }
+            });
+
+            const comment = commentBox.value.trim();
+
+            if (!selectedRating) {
+                showStatus('Please select a star rating.', 'error');
+                return;
+            }
+            
+            // Here you would normally send the data to a backend server.
+            console.log('Feedback Submitted:', {
+                rating: selectedRating,
+                comment: comment
+            });
+
+            showStatus('Thank you for your feedback! It has been submitted.');
+            
+            // Get the current date in a readable format
+            const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            // Create the star rating HTML based on the selected rating
+            let starsHtml = '';
+            for (let i = 1; i <= 3; i++) {
+                if (i <= selectedRating) {
+                    starsHtml += '<i class="fas fa-star filled"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
+
+            // Create a new table row element
+            const newRow = document.createElement('tr');
+            newRow.className = 'border-b border-gray-200';
+            newRow.innerHTML = `
+                <td class="py-3 px-2">${date}</td>
+                <td class="py-3 px-2">
+                    <span class="rating-stars">
+                        ${starsHtml}
+                    </span>
+                </td>
+                <td class="py-3 px-2">${comment}</td>
+            `;
+
+            // Prepend the new row to the feedback history table body
+            feedbackHistoryBody.prepend(newRow);
+            
+            // Clear the form after submission
+            starRatings.forEach(star => star.checked = false);
+            commentBox.value = '';
+        });
+    </script>
+</body>
+</html>

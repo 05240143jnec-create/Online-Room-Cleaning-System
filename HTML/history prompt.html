@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Task</title>
+    <link rel="stylesheet" href="assign_style.css">
+    <style>
+        body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.assign-modal {
+    width: 300px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modal-title {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 10px 0;
+}
+
+.modal-content {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.task-date {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    margin: 0;
+}
+
+.task-message {
+    font-size: 0.9em;
+    color: #666;
+    margin: 10px 0 0 0;
+}
+
+.modal-action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Pushes the button to the right */
+}
+
+.assign-button {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.assign-button:hover {
+    color: #333;
+}
+    </style>
+</head>
+<body>
+    <div class="modal-backdrop">
+        <div class="assign-modal">
+            <h2 class="modal-title">Description</h2>
+            <div class="modal-content">
+                <p class="task-date">NB-2-11 Saturday 2 PM</p>
+                <p class="task-message">You are assign a new cleaning task</p>
+            </div>
+            <div class="modal-action">
+                <a href="../HTML/history done.html" class="assign-button">Assign</a>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            /* Using a consistent placeholder URL for the background image */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .app-container {
+            /* Updated size to match Login/Register: py-12 px-16, max-w-2xl */
+            max-width: 500px; /* Base for mobile */
+            margin: 0 auto;
+            border-radius: 0.5rem; /* Matches the rounded-lg class on the container */
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            width: 90%;
+            padding: 1.5rem; /* Base padding */
+        }
+        
+        /* Adjusted .app-container for responsiveness */
+        @media (min-width: 768px) { 
+            .app-container {
+                max-width: 640px; /* Equivalent to max-w-2xl in Tailwind, used for fixed size consistency */
+                width: 100%;
+                padding: 0; /* Tailwind classes on inner elements handle padding */
+            }
+        }
+
+
+        .app-header {
+            background-color: white;
+            color: black;
+            /* Padding moved to the container div below */
+            text-align: center;
+        }
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 1.5rem;
+        }
+        .logo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: contain;
+        }
+        .username {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .menu-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            z-index: 10;
+            position: relative;
+        }
+        .menu-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: start;
+            background-color: #00bf8a;
+            color: black;
+            border-radius: 0.5rem; 
+            padding: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item i {
+            font-size: 2.5rem;
+            color: black;
+        }
+        .menu-text {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-left: 20px;
+        }
+        .notification-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background-color: #ef4444;
+            color: white;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <!-- Updated container classes to match the consistent large size -->
+    <div class="app-container bg-white py-12 px-16 rounded-lg shadow-lg w-full max-w-2xl">
+        <header class="app-header">
+            <div class="user-greeting">
+                <div class="logo">
+                    <!-- Updated image path to a working placeholder URL -->
+                    <img src="../images/logo.jpg" alt="Logo">
+                </div>
+                <h1 class="username">Hi, <span id="user-name-display">Loading...</span></h1>
+            </div>
+        </header>
+        
+        <main class="menu-container">
+            <button class="menu-item">
+                <i class="fas fa-user-circle"></i>
+                <div class="menu-text">Profile</div>
+            </button>
+            <a href="../HTML/paymentDetail.html" class="menu-item">
+                <i class="fas fa-credit-card"></i>
+                <div class="menu-text">Payment Details</div>
+            </a>
+            <a href="../HTML/notification.html" class="menu-item">
+                <i class="fas fa-bell"></i>
+                <div class="menu-text">Notification</div>
+                <span class="notification-badge"></span>
+            </a>
+            <a href="../HTML/AssignWork.html" class="menu-item">
+                <i class="fas fa-clipboard-list"></i>
+                <div class="menu-text">Assigned work</div>
+            </a>
+            <a href="../HTML/feedback.html" class="menu-item">
+                <i class="fas fa-comment-dots"></i>
+                <div class="menu-text">Feedback</div>
+            </a>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNameDisplay = document.getElementById('user-name-display');
+            // NOTE: This uses localStorage, which is generally fine for demo apps, 
+            // but for production, consider a more robust state/auth solution like Firebase.
+            const userName = localStorage.getItem('currentUserName'); 
+
+            if (userNameDisplay && userName) {
+                // Capitalize the first letter of the username for a cleaner look
+                userNameDisplay.textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            } else if (userNameDisplay) {
+                // If no username is found, set a default message
+                userNameDisplay.textContent = 'User';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../CSS/admin.css">
+    <script>
+        function goToPage(url) {
+    window.location.href = url;
+}
+    </script>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="header">
+            <div class="logo-placeholder">
+                <img src="../images/logo.jpg" alt="Online Home Cleaning Service" class="app-logo">
+            </div>
+            <div class="profile-avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+        <div class="greeting">
+            <h1>Hi, Admin</h1>
+        </div>
+        <div class="button-grid">
+            <button class="admin-button">Import user</button>
+            <button class="admin-button">View Booking</button>
+            <button class="admin-button" onclick="goToPage('../HTML/paymentDetail.html')">View Payment</button>
+            <button class="admin-button">Cleaner Details</button>
+            <button class="admin-button">Feedback Details</button>
+            <button class="admin-button">Work Assignment</button>
+        </div>
+    </div>
+</body>
+</html>

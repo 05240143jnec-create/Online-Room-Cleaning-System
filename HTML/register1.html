@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <!-- Use Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles to override or add on top of Tailwind */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            /* NOTE: Using a placeholder URL for the background image for stability in the environment */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-underline {
+            border-bottom: 2px solid #e5e7eb;
+            transition: box-shadow 0.3s;
+        }
+        .input-underline:focus {
+            /* Keep border color fixed and add a box shadow for focus indication */
+            border-bottom-color: #e5e7eb; 
+            box-shadow: 0 2px 0 0 #2563eb;
+            outline: none;
+        }
+        
+        /* === Styles to remove number input spinner arrows === */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        /* SVG icon sizing */
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .back-btn-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .header-logos {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+    <!-- Main Container: Updated to match register2.html size (p-16, rounded-lg, max-w-2xl) -->
+    <div class="container bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl relative">
+        <!-- Back Button -->
+        <div class="back-btn-container">
+            <!-- Updated back link to be consistent if this is the first page -->
+            <a href="../HTML/login page.html" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center mb-6">
+            <!-- Logo: Increased margin-bottom from mb-6 to mb-10 -->
+            <img src="../images/logo.jpg" alt="Main Logo" class="h-40 w-40 mb-10"> 
+            <h2 class="text-4xl font-semibold text-center text-gray-800">Registration</h2>
+        </div>
+        
+        <!-- Form Spacing: Increased vertical space from space-y-4 to space-y-8 -->
+        <form id="registration-form" class="space-y-8">
+            <div>
+                <input type="text" id="name" placeholder="Name" required class="input-underline w-full p-2 bg-transparent text-xl font-medium placeholder-gray-400">
+            </div>
+            <div>
+                <!-- Gender Dropdown: Kept select text size as text-xl -->
+                <select id="gender" required class="input-underline w-full p-2 bg-transparent text-xl font-medium text-gray-800">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div>
+                <input type="number" id="age" placeholder="Age" required class="input-underline w-full p-2 bg-transparent text-xl font-medium placeholder-gray-400">
+            </div>
+            <div>
+                <input type="email" id="email" placeholder="Email" required class="input-underline w-full p-2 bg-transparent text-xl font-medium placeholder-gray-400">
+            </div>
+            
+            <div id="error-message" class="text-red-500 text-center text-lg hidden">
+                Please fill out all fields.
+            </div>
+
+            <div class="text-center mt-10">
+                <!-- Button: Increased width from w-40 to w-48 and added text-lg for consistency -->
+                <a href="../HTML/register2.html" type="submit" class="bg-blue-600 text-white font-bold py-4 px-10 rounded-full hover:bg-blue-700 transition-colors shadow-lg w-48 text-lg">
+                    Next
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registration-form');
+            const errorMessage = document.getElementById('error-message');
+            const nextButton = form.querySelector('a[type="submit"]');
+
+            // Prevent default link behavior if the form is invalid
+            nextButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Temporarily prevent navigation until validation passes
+                
+                const name = document.getElementById('name').value;
+                const gender = document.getElementById('gender').value;
+                const age = document.getElementById('age').value;
+                const email = document.getElementById('email').value;
+
+                // Check if any of the required fields are empty
+                if (name.trim() === '' || gender === '' || age.trim() === '' || email.trim() === '') {
+                    // Show the error message
+                    errorMessage.classList.remove('hidden');
+                } else {
+                    // Hide the error message and proceed with navigation
+                    errorMessage.classList.add('hidden');
+                    console.log('Form submitted successfully. Navigating to the next page.');
+                    
+                    // In a real app, save data first, then navigate:
+                    console.log({ name, gender, age, email });
+                    
+                    // Proceed to the next page
+                    window.location.href = 'register2.html';
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>
