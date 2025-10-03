@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Room Cleaning System</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and simple rounded corners -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the app container */
+        .app-container {
+            /* Removed fixed max-width here. 
+               The container's width is now controlled by Tailwind classes in the HTML 
+               (w-11/12, md:w-2/3, etc.) for responsiveness. 
+            */
+            width: 100%;
+            padding: 1.5rem;
+            /* Added a slightly stronger shadow for contrast against the background image */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            background-color: white;
+        }
+        /* Custom button styling to match the image's dark, rounded look */
+        .get-started-button {
+            transition: all 0.15s ease-in-out;
+            box-shadow: 0 4px #4b5563; /* Dark shadow for depth */
+        }
+        .get-started-button:active {
+            box-shadow: 0 2px #4b5563; /* Reduce shadow on press */
+            transform: translateY(2px);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body 
+    class="min-h-screen flex items-center justify-center font-sans" 
+    style="background-image: url('../images/jnecCampus.jpg'); background-size: cover; background-position: center;"
+>
+
+    <!-- 
+        Main Content Container uses smaller width classes for larger screens 
+        (sm:w-2/3, md:w-1/2, lg:w-2/5) and a smaller max width (max-w-xl).
+    -->
+    <div class="app-container rounded-3xl mx-auto flex flex-col justify-between 
+                 w-11/12 sm:w-2/3 md:w-1/2 lg:w-2/5 max-w-xl" 
+         style="min-height: 90vh;">
+        
+        <!-- Header: Logos -->
+        <header class="w-full">
+            
+            <!-- Logos -->
+            <div class="flex justify-between items-start mb-12">
+                <!-- Logo 1 (Royal University of Bhutan - Placeholder) -->
+                <img src="../images/rub.png" 
+                     alt="Royal University of Bhutan Logo" 
+                     class="h-24 w-24 object-contain"
+                     onerror="this.onerror=null;this.src='https://placehold.co/96x96/507d32/ffffff?text=Logo+1';"
+                >
+
+                <!-- Logo 2 (Second Emblem - Placeholder) -->
+                <img src="../images/jnec.png" 
+                     alt="Second Emblem Logo" 
+                     class="h-24 w-24 object-contain"
+                     onerror="this.onerror=null;this.src='https://placehold.co/96x96/ffcd00/333333?text=Logo+2';"
+                >
+            </div>
+        </header>
+
+        <!-- Main Content: Welcome and System Image -->
+        <main class="flex-grow flex flex-col items-center justify-center text-center">
+            
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-8">
+                Welcome
+            </h1>
+
+            <!-- Central Graphic and Text -->
+            <div class="w-full flex flex-col items-center justify-center">
+                
+                <!-- Placeholder for the central icon (Cleaner with cleaning tools) -->
+                <img src="../images/logo.jpg" 
+                     alt="Cleaner System Icon" 
+                     class="h-40 w-40 object-contain rounded-full border-4 border-gray-100 shadow-lg mb-4"
+                     onerror="this.onerror=null;this.src='https://placehold.co/150x150/dbeafe/1f2937?text=Icon';"
+                >
+
+                <!-- Corrected text color class back to text-gray-700 -->
+                <p class="text-xl font-semibold text-gray-700 tracking-wide">
+                    Online Room Cleaning System
+                </p>
+            </div>
+        </main>
+
+        <!-- Footer: Action Button -->
+        <footer class="w-full pt-12 flex justify-center">
+            <button 
+                id="getStartedButton"
+                class="get-started-button py-3 px-8 bg-gray-800 text-white font-bold text-base rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 transition duration-150 ease-in-out uppercase"
+                onclick="alertUser()"
+            >
+                Get Started
+            </button>
+        </footer>
+    </div>
+    
+    <!-- JavaScript to handle button click (using a custom message box instead of alert) -->
+    <script>
+        function alertUser() {
+            // Function to simulate a modal or message box, since alert() is disallowed.
+            const button = document.getElementById('getStartedButton');
+            button.innerText = 'Redirecting...';
+            button.classList.add('opacity-75');
+
+            // Reset button after a short delay
+            setTimeout(() => {
+                button.innerText = 'GET STARTED';
+                button.classList.remove('opacity-75');
+            }, 1000);
+
+            console.log('GET STARTED button clicked. This would normally navigate to the login/registration page.');
+            // If you were building a multi-page app, this is where you would handle the navigation.
+        }
+    </script>
+</body>
+</html>
