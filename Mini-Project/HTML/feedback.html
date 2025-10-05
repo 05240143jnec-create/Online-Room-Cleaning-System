@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        input[type="radio"] {
+            display: none;
+        }
+
+        label span {
+            cursor: pointer;
+            font-size: 2rem;
+            transition: transform 0.2s ease-in-out, color 0.2s;
+            display: block;
+            text-align: center;
+        }
+
+        input[type="radio"]:checked+span {
+            transform: scale(1.4);
+            color: #16a34a;
+            /* green highlight */
+        }
+
+        label span:hover {
+            transform: scale(1.2);
+        }
+
+        .emoji-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .desc {
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Rate Our Cleaning Service</h2>
+
+        <!-- Feedback Form -->
+        <form id="feedbackForm" class="space-y-5">
+
+            <!-- Emoji Rating -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 text-center mb-2">How was your experience?</label>
+                <div class="flex justify-between mt-2">
+                    <label for="rate1" class="emoji-option">
+                        <input type="radio" id="rate1" name="rating" value="😡 Very Bad" required>
+                        <span>😡</span>
+                        <div class="desc">Very Bad</div>
+                    </label>
+                    <label for="rate2" class="emoji-option">
+                        <input type="radio" id="rate2" name="rating" value="😕 Poor">
+                        <span>😕</span>
+                        <div class="desc">Poor</div>
+                    </label>
+                    <label for="rate3" class="emoji-option">
+                        <input type="radio" id="rate3" name="rating" value="😐 Okay">
+                        <span>😐</span>
+                        <div class="desc">Okay</div>
+                    </label>
+                    <label for="rate4" class="emoji-option">
+                        <input type="radio" id="rate4" name="rating" value="😊 Good">
+                        <span>😊</span>
+                        <div class="desc">Good</div>
+                    </label>
+                    <label for="rate5" class="emoji-option">
+                        <input type="radio" id="rate5" name="rating" value="😍 Excellent">
+                        <span>😍</span>
+                        <div class="desc">Excellent</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Feedback (Optional) -->
+            <div>
+                <label for="feedback" class="block text-sm font-medium text-gray-700">Additional Feedback
+                    (Optional)</label>
+                <textarea id="feedback" name="feedback" rows="4"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:ring-green-500 focus:border-green-500"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit"
+                class="w-full bg-green-600 text-white py-3 rounded-xl font-semibold hover:bg-green-700 transition">
+                Submit Feedback
+            </button>
+        </form>
+
+        <!-- Thank You / Summary -->
+        <div id="thankYouMessage" class="hidden text-center mt-6">
+            <p class="text-green-600 font-semibold text-lg">🎉 Thank you for your feedback!</p>
+            <p class="mt-2">You rated: <span id="selectedEmoji"></span></p>
+            <p id="userFeedbackText" class="mt-1"></p>
+            <form action="dashboard.html" method="get">
+                <button id="backButton"
+                    class="mt-4 px-6 py-2 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition">
+                    Back
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const thankYou = document.getElementById('thankYouMessage');
+        const backButton = document.getElementById('backButton');
+        const selectedEmoji = document.getElementById('selectedEmoji');
+        const userFeedbackText = document.getElementById('userFeedbackText');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // prevent page refresh
+
+            // Get selected emoji
+            const rating = form.rating.value;
+            selectedEmoji.textContent = rating;
+
+            // Get feedback text
+            const feedbackText = document.getElementById('feedback').value.trim();
+            if (feedbackText) {
+                userFeedbackText.textContent = `Feedback: "${feedbackText}"`;
+                userFeedbackText.style.display = "block";
+            } else {
+                userFeedbackText.style.display = "none";
+            }
+
+            // Hide form, show thank-you
+            form.classList.add('hidden');
+            thankYou.classList.remove('hidden');
+        });
+
+        backButton.addEventListener('click', function () {
+            thankYou.classList.add('hidden');
+            form.reset(); // clear inputs
+            form.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>

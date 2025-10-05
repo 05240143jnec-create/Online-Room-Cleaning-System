@@ -1,0 +1,175 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-image: url("../images/jnec.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff;
+  position: relative;
+  z-index: 0;
+}
+
+/* Add a dark overlay for better text visibility */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* slightly dark transparent overlay */
+  z-index: -1; /* keeps it behind all content */
+}
+
+
+/* Navbar */
+header {
+  background: #004aad;
+  padding: 15px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  min-width: 150px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  z-index: 1;
+  text-align: left;
+}
+
+.dropdown-content a {
+  color: #004aad;
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background: #e6f0ff;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Welcome Box */
+.welcome-box {
+  padding: 80px 20px;
+}
+
+.logo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;            /* makes it round */
+  object-fit: cover;             /* keeps image inside round shape without stretch */
+  display: block;
+  margin: 0 auto 20px auto;      /* centers logo */
+  border: 4px solid #ffffff;     /* clean white border around logo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* soft shadow for depth */
+  animation: rotateLogo 8s linear infinite;  /* smooth rotation */
+}
+
+@keyframes rotateLogo {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+.welcome-box h1 {
+  color: #004aad;
+  font-size: 2.5rem;
+}
+
+.welcome-box span {
+  color: #0077ff;
+}
+
+.welcome-box p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.btn {
+  background: #004aad;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #0077ff;
+  transform: scale(1.05);
+}
+
+/* Sections */
+section {
+  padding: 60px 20px;
+}
+
+section h2 {
+  color: #004aad;
+  margin-bottom: 20px;
+}
+
+.team-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+
+.team-member img {
+  width: 150px;          /* medium size */
+  height: 150px;         /* keeps square shape */
+  border-radius: 10px;   /* slightly rounded corners (not circular) */
+  object-fit: cover;     /* keeps the image from stretching */
+  margin-bottom: 10px;
+  border: 2px solid #004aad;  /* adds a neat border */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;    /* centers the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* soft shadow for clean look */
+}
+
+
+footer {
+  background: #004aad;
+  color: white;
+  padding: 15px 0;
+  font-size: 14px;
+}

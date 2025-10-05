@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notifications</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: url(../images/jnec.jpg) no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    width: 420px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: white;
+    overflow: hidden;
+  }
+
+  .header {
+    background: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  h2 {
+    margin-top: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 5px;
+  }
+
+  .notification-section {
+    margin-bottom: 20px;
+  }
+
+  .notification {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    backdrop-filter: blur(5px);
+  }
+
+  .notification button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  .notification button svg {
+    width: 100%;
+    height: 100%;
+    fill: #fff;
+  }
+
+  .notification button:hover svg {
+    fill: red;
+  }
+
+  .time {
+    font-size: 0.8em;
+    color: #ccc;
+    margin-top: 8px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">🔔 Notifications</div>
+
+  <div class="content">
+    <div class="notification-section">
+      <h2>New</h2>
+      <div class="notification">
+        Your cleaning service has been confirmed.
+        <span class="time">5 Oct 2025 | 10:45 AM</span>
+        <button onclick="deleteNotification(this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.7 1.5H8.2c-.9 0-1.6-.7-1.7-1.5L5 9zm5 2v8h2v-8H10zm4 0v8h2v-8h-2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="notification-section">
+      <h2>Earlier</h2>
+      <div class="notification">
+        Your cleaning service has been declined due to shortage of cleaners.
+        <span class="time">4 Oct 2025 | 6:20 PM</span>
+        <button onclick="deleteNotification(this)">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18v2H3V6zm2 3h14l-1.5 12.5c-.1.8-.8 1.5-1.7 1.5H8.2c-.9 0-1.6-.7-1.7-1.5L5 9zm5 2v8h2v-8H10zm4 0v8h2v-8h-2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function deleteNotification(button) {
+    const notification = button.parentElement;
+    notification.remove();
+  }
+</script>
+
+</body>
+</html>
