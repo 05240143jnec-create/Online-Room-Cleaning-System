@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+       
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Custom styles for the pop-up animation */
+        .scale-95 { transform: scale(0.95); }
+        .scale-100 { transform: scale(1); }
+        .opacity-0 { opacity: 0; }
+        .opacity-100 { opacity: 1; }
+        .transition-transform { transition-property: transform; transition-duration: 300ms; }
+        .transition-opacity { transition-property: opacity; transition-duration: 300ms; }
+
+        /* Body and Background styles matching register pages */
+        body {
+            /* NOTE: Using a placeholder URL for the background image for stability in the environment */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Header image styling */
+        .header-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12rem; /* Spacing between logos */
+            margin-bottom: 2rem; /* Reduced spacing below logos */
+        }
+        .logo {
+            height: 120px; /* Consistent logo size */
+            width: auto;
+            border-radius: 0.5rem; /* Added slight rounding to logos */
+        }
+        
+        /* Input styling to match the register pages */
+        .input-group input {
+            border-bottom: 2px solid #e5e7eb;
+            transition: box-shadow 0.3s;
+            background-color: transparent;
+            width: 100%;
+        }
+        .input-group input:focus {
+            border-bottom-color: #e5e7eb; 
+            box-shadow: 0 2px 0 0 #2563eb;
+            outline: none;
+        }
+        
+        /* Input Group positioning */
+        .input-group {
+            position: relative;
+        }
+        .password-group {
+            position: relative;
+        }
+
+        /* Password Toggle positioning */
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Link/Prompt styling */
+        .forgot-password-link {
+            display: block;
+            text-align: right;
+            color: #2563eb;
+            font-weight: 500;
+            margin-top: -1rem; /* Adjust margin up to compensate for space-y-8 */
+            margin-bottom: 1rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .forgot-password-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* * THE FIX IS HERE: Hide the browser's default password reveal button.
+         * This targets Microsoft Edge and Google Chrome.
+         */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+            display: none;
+        }
+        input[type="password"]::-webkit-inner-spin-button,
+        input[type="password"]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+        }
+        input[type="password"]::-webkit-text-security {
+            -webkit-text-security: disc;
+        }
+    </style>
+
+   
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="container bg-white py-12 px-16 rounded-lg shadow-lg w-full max-w-2xl relative">
+        <div class="header-images">
+            <img src="../images/rub.png" alt="University Logo" class="logo">
+            <img src="../images/jnec.png" alt="College Logo" class="logo">
+        </div>
+
+        <form class="space-y-8">
+            <h2 class="text-4xl font-semibold text-center text-gray-800"> User Login</h2> 
+            
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Username" class="py-3 text-xl font-medium placeholder-gray-400">
+            </div>
+
+            <div class="input-group password-group">
+                <input type="password" id="passwordInput" placeholder="Password" class="py-3 text-xl font-medium placeholder-gray-400">
+
+                <span class="password-toggle" id="passwordToggle">
+                    </span>
+            </div>
+
+            <a href="../HTML/forgot password.html" class="forgot-password-link text-lg">Forgot password?</a>
+
+            <button type="submit" class="bg-blue-600 text-white font-bold py-4 px-10 rounded-full hover:bg-blue-700 transition-colors shadow-lg w-48 text-lg block mx-auto" id="login-btn">Log In</button>
+
+            <div class="register-prompt-group text-center mt-3 pt-4 border-t border-gray-100">
+                <p class="text-gray-600 text-lg mb-3">Don't have an account?</p>
+                <a href="../HTML/register1.html" class="inline-block border-2 border-blue-600 text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-100 transition-all shadow-md w-48 text-lg">
+                    Register Here
+                </a>
+            </div>
+        </form>
+    </div>
+    
+    <div id="success-message" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm hidden">
+      <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center transform transition-transform transition-opacity duration-300 scale-95 opacity-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <h3 class="mt-4 text-xl font-semibold text-gray-900">Login Successful!</h3>
+        <p class="mt-2 text-gray-500">Click OK to continue .</p>
+        <button id="ok-button" class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg">
+          OK
+        </button>
+      </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordToggle = document.getElementById('passwordToggle');
+    const loginBtn = document.getElementById('login-btn');
+    const usernameInput = document.getElementById('username');
+    const successMessage = document.getElementById('success-message');
+    const messageBox = successMessage.querySelector('div');
+    const okButton = document.getElementById('ok-button');
+
+    const eyeOffSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.91 4.24A9.95 9.95 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.28A6 6 0 0 1 12 10a6 6 0 0 1 6 6m-2-2a4 4 0 0 0-4-4m-2 2a4 4 0 0 0 4 4"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+    const eyeSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+
+    passwordToggle.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        passwordToggle.innerHTML = isPassword ? eyeSVG : eyeOffSVG;
+    });
+
+    // THIS LINE is what now initially places the first eye-off icon.
+    passwordToggle.innerHTML = eyeOffSVG;
+
+    // Handle the login button click
+    loginBtn.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent the form from submitting and the button from acting like a link
+
+        const username = usernameInput.value;
+        // NOTE: In a production environment, you should use Firestore for persistent storage, not localStorage.
+        localStorage.setItem('currentUserName', username); 
+
+        // Show the success message pop-up with a scaling animation
+        successMessage.classList.remove('hidden');
+        setTimeout(() => {
+            messageBox.classList.remove('scale-95', 'opacity-0');
+            messageBox.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    });
+
+    // Handle the "OK" button click inside the pop-up
+    okButton.addEventListener('click', () => {
+        // Revert the animation classes to hide the pop-up
+        messageBox.classList.remove('scale-100', 'opacity-100');
+        messageBox.classList.add('scale-95', 'opacity-0');
+        
+        // Redirect to the dashboard after the pop-up has faded out
+        setTimeout(() => {
+            // Placeholder: Replace with actual redirection logic
+            window.location.href = '../HTML/user_dashbord.html';
+        }, 300); // Small delay to allow fade-out
+    });
+    });
+    </script>
+</body>
+</html>

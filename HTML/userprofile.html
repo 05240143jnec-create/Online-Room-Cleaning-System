@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for the app container */
+        .profile-card {
+            width: 100%;
+            background-color: white;
+        }
+        
+        /* Custom styling for the Edit button to match the purple shade */
+        .edit-button {
+            background-color: #e6e0ff; /* Light purple */
+            color: #2c10e2; /* Darker text */
+            transition: all 0.15s ease-in-out;
+            border: 1px solid #c9c0ff; /* Subtle border */
+        }
+        .edit-button:hover {
+            background-color: #d8cfff;
+        }
+
+        /* * UNCHANGED BODY BACKGROUND * */
+        body {
+            /* Using a reliable placeholder for the background image */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center font-sans p-6">
+
+    <div class="profile-card bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl relative">
+        
+        <div class="bg-white pt-0 pb-1 px-0 flex justify-between items-start relative">
+            
+            <!-- Back Button to Dashboard -->
+            <a href="../HTML/user_dashbord.html" class="text-gray-600 hover:text-gray-800 transition relative z-20 absolute top-0 left-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </a>
+            
+            <h1 class="text-xl font-bold text-gray-800 w-full text-center">
+                User Profile
+            </h1>
+            
+        </div>
+
+        <div class="p-0 pb-0 text-center mt-6"> 
+
+            <div class="relative inline-block mb-10"> 
+                
+                <!-- Using a placeholder image since the original path '../images/profile.png' is not accessible -->
+                <img 
+                    src="../images/profile.png" 
+                    alt="User Profile Picture" 
+                    class="h-40 w-40 object-cover rounded-full border-6 border-white shadow-xl"
+                    onerror="this.onerror=null;this.src='#';"
+                >
+                
+            </div>
+            
+            <h2 id="userName" class="text-2xl font-bold text-gray-800 mt-4"></h2>
+            <p id="userId" class="text-base text-gray-500 mb-10"></p>
+
+            <a href="../HTML/userprofile2.html" id="editButton" class="edit-button py-4 px-20 rounded-xl font-bold text-xl shadow-lg mb-10 inline-block">
+                Edit
+            </a>
+
+            <div class="space-y-6 text-left border-t pt-8">
+                <!-- Change Password (This link is good to go as it points to the password change screen) -->
+                <div class="flex items-center text-gray-700 hover:text-blue-600 cursor-pointer transition" onclick="window.location.href='../HTML/changedpassword.html'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2v10a2 2 0 01-2 2H9a2 2 0 01-2-2V9a2 2 0 012-2h6zm-2-5a2 2 0 00-2 2v2H9a2 2 0 00-2 2v10a2 2 0 002 2h6a2 2 0 002-2V8a2 2 0 00-2-2h-2V4a2 2 0 00-2-2z" /></svg>
+                    <a href="../HTML/changedpassword.html" class="text-lg">Change password</a>
+                </div>
+                
+                <!-- Help and Info -->
+                <div class="flex items-center text-gray-700 hover:text-blue-600 cursor-pointer transition" onclick="showNotification('Help and Info functionality would be displayed here.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9.247a1 1 0 01.768-.119 12.008 12.008 0 00.59 1.139m.588-1.139a1 1 0 10-.943-.016 12.008 12.008 0 00-.59 1.139m-1.742 2.766a12.008 12.008 0 00.59 1.139M15 17h-2.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H15a.5.5 0 01.5.5v1a.5.5 0 01-.5.5zm-5 0H7.5a.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5H10a.5.5 0 01.5.5v1a.5.5 0 01-.5.5z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 12a3 3 0 116 0 3 3 0 01-6 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" /></svg>
+                    <a href="../HTML/help and info.html" class="text-lg">Help and info</a>
+                </div>
+
+                <!-- Logout -->
+                <div class="flex items-center text-red-500 hover:text-red-700 cursor-pointer transition" onclick="showLogoutModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <a href="../HTML/login page.html" class="text-lg font-medium">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Modal/Notification for unsupported alerts/confirms -->
+    <div id="customModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-2xl w-full max-w-sm">
+            <h3 id="modalTitle" class="text-xl font-semibold mb-4 text-gray-800"></h3>
+            <p id="modalMessage" class="mb-6 text-gray-700"></p>
+            <div id="modalActions" class="flex justify-end space-x-3">
+                <!-- Buttons will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DYNAMIC USER DATA (SIMULATION) ---
+        const loggedInUser = {
+            name: "Dawa Dem", 
+            userId: "chunkudawa9@gmail.com" 
+        };
+        
+        // --- MODAL UTILITIES (Replaces alert() and confirm()) ---
+        function showModal(title, message, actions) {
+            const modal = document.getElementById('customModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            const actionsDiv = document.getElementById('modalActions');
+            actionsDiv.innerHTML = '';
+
+            actions.forEach(action => {
+                const button = document.createElement('button');
+                button.textContent = action.text;
+                button.className = action.isPrimary 
+                    ? 'bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition'
+                    : 'bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition';
+                button.onclick = () => {
+                    modal.classList.add('hidden');
+                    if (action.callback) action.callback();
+                };
+                actionsDiv.appendChild(button);
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function showNotification(message) {
+            showModal('Information', message, [{ text: 'OK', isPrimary: true }]);
+        }
+
+        function showLogoutModal() {
+            showModal(
+                'Confirm Logout',
+                'Are you sure you want to log out?',
+                [
+                    { text: 'Cancel', isPrimary: false },
+                    { 
+                        text: 'Log Out', 
+                        isPrimary: true, 
+                        callback: () => {
+                            // In a real app, this is where Firebase signOut() would go
+                            // For now, we simulate the redirect
+                            window.location.href = '../HTML/login page.html';
+                        }
+                    }
+                ]
+            );
+        }
+
+        // --- AUTOMATION LOGIC ---
+        function populateUserProfile(user) {
+            const userNameElement = document.getElementById('userName');
+            const userIdElement = document.getElementById('userId');
+
+            if (user && userNameElement) {
+                userNameElement.textContent = user.name || 'User Name Not Found';
+            }
+            if (user && userIdElement) {
+                userIdElement.textContent = `User id: ${user.userId || 'Not Available'}`;
+            }
+        }
+
+        // Run the populate function when the page loads
+        window.onload = function() {
+            populateUserProfile(loggedInUser);
+        };
+        
+    </script>
+</body>
+</html>

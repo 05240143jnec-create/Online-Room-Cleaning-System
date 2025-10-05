@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* MATCHING REGISTRATION PAGE SIZE: max-w-2xl from register.html */
+        .app-container {
+            max-width: 600px; /* Equivalent to max-w-2xl in a typical Tailwind setup */
+            max-height: 90vh;
+            width: 100%;
+            background-color: white;
+            border-radius: 0.75rem; /* Equivalent to rounded-lg */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Equivalent to shadow-lg */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .bottom-nav {
+            padding: 1.5rem 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 flex items-center justify-center min-h-screen">
+
+    <div class="app-container">
+        
+        <header class="p-8 bg-white border-b border-gray-200 flex-shrink-0"> <div class="flex flex-col items-center justify-center mb-4">
+                <img src="../images/logo.jpg" alt="App Logo" class="w-24 h-24 rounded-full border-2 border-gray-300 mb-2">
+                <h1 class="main-title text-3xl font-bold text-gray-800">Assign Work</h1> </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 space-y-8"> <div id="new-work-container" class="flex flex-col space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700">New Assignments</h2>
+
+                <div class="work-card bg-blue-50 p-6 rounded-xl shadow-sm border border-blue-200">
+                    <div class="text-gray-800 space-y-3">
+                        <p class="text-base"><strong class="font-medium">Block name:</strong> NB</p>
+                        <p class="text-base"><strong class="font-medium">Room number:</strong> 2-11</p>
+                        <p class="text-base"><strong class="font-medium">Date:</strong> 25 May</p>
+                        <p class="text-base"><strong class="font-medium">Time:</strong> 10:30 Am</p>
+                    </div>
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <button onclick="showMessage('You accepted the work assignment.', 'accept', this.parentElement.parentElement)" class="px-6 py-2 text-base font-semibold text-green-600 bg-green-100 rounded-lg hover:bg-green-200 transition-colors">Accept</button>
+                        <button onclick="showMessage('You rejected the work assignment.', 'reject', this.parentElement.parentElement)" class="px-6 py-2 text-base font-semibold text-red-600 bg-red-100 rounded-lg hover:bg-red-200 transition-colors">Reject</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="accepted-work-container" class="flex flex-col space-y-6 hidden">
+                <h2 class="text-2xl font-semibold text-gray-700">Accepted</h2>
+                </div>
+
+            <div id="rejected-work-container" class="flex flex-col space-y-6 hidden">
+                <h2 class="text-2xl font-semibold text-gray-700">Rejected</h2>
+                </div>
+
+            <div class="flex flex-col space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700">Earlier Completed / Missed</h2>
+                
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-gray-800 space-y-3">
+                        <p class="text-base"><strong class="font-medium">Block name:</strong> DF</p>
+                        <p class="text-base"><strong class="font-medium">Room number:</strong> 2-6</p>
+                        <p class="text-base"><strong class="font-medium">Date:</strong> 20 April</p>
+                        <p class="text-base"><strong class="font-medium">Time:</strong> 10:30 Am</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-gray-800 space-y-3">
+                        <p class="text-base"><strong class="font-medium">Block name:</strong> GH</p>
+                        <p class="text-base"><strong class="font-medium">Room number:</strong> 3-15</p>
+                        <p class="text-base"><strong class="font-medium">Date:</strong> 18 April</p>
+                        <p class="text-base"><strong class="font-medium">Time:</strong> 09:00 Am</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-gray-800 space-y-3">
+                        <p class="text-base"><strong class="font-medium">Block name:</strong> MN</p>
+                        <p class="text-base"><strong class="font-medium">Room number:</strong> 1-05</p>
+                        <p class="text-base"><strong class="font-medium">Date:</strong> 15 April</p>
+                        <p class="text-base"><strong class="font-medium">Time:</strong> 02:00 Pm</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="text-gray-800 space-y-3">
+                        <p class="text-base"><strong class="font-medium">Block name:</strong> PQ</p>
+                        <p class="text-base"><strong class="font-medium">Room number:</strong> 4-20</p>
+                        <p class="text-base"><strong class="font-medium">Date:</strong> 10 April</p>
+                        <p class="text-base"><strong class="font-medium">Time:</strong> 11:45 Am</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <div class="bottom-nav">
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors" onclick="history.back()">
+                <i class="fas fa-arrow-left text-xl"></i>
+                <span class="text-xs">Back</span>
+            </a>
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">Home</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="messageModal" class="modal hidden">
+        <div class="modal-content">
+            <p id="modalMessage" class="text-lg font-semibold text-gray-800 mb-4"></p>
+            <button id="modalOkButton" class="px-6 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">OK</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the modal with a specific message and action type
+        function showMessage(message, action, cardElement) {
+            const modal = document.getElementById('messageModal');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalOkButton = document.getElementById('modalOkButton');
+
+            modalMessage.textContent = message;
+            
+            // Update the OK button's onclick to handle the specific action and card element
+            modalOkButton.onclick = () => {
+                handleAction(action, cardElement);
+            };
+
+            modal.classList.remove('hidden');
+        }
+
+        // Function to handle the action after the user clicks OK
+        function handleAction(action, cardElement) {
+            hideMessage(); // First, hide the modal
+
+            // Get the details from the card
+            const detailsDiv = cardElement.querySelector('.text-gray-800');
+            if (!detailsDiv) return;
+
+            // Clone the details for the new card
+            const clonedDetails = detailsDiv.cloneNode(true);
+            
+            // Remove the old buttons
+            const buttonsDiv = cardElement.querySelector('.flex.justify-end');
+            if (buttonsDiv) {
+                buttonsDiv.remove();
+            }
+            
+            // Create a new card structure (like the old one but without buttons)
+            const newCard = document.createElement('div');
+            newCard.className = 'work-card p-6 rounded-xl shadow-sm';
+            newCard.appendChild(clonedDetails);
+
+
+            if (action === 'accept') {
+                // Set green styling for accepted work
+                newCard.classList.add('bg-green-50', 'border', 'border-green-200');
+
+                // Add an indicator of the action
+                const acceptedIndicator = document.createElement('p');
+                acceptedIndicator.className = 'text-right text-green-600 font-semibold mt-2';
+                acceptedIndicator.textContent = 'Accepted';
+                newCard.appendChild(acceptedIndicator);
+                
+                // Move the card to the "Accepted" container
+                const acceptedContainer = document.getElementById('accepted-work-container');
+                acceptedContainer.appendChild(newCard);
+                acceptedContainer.classList.remove('hidden'); // Show the accepted section
+            } else if (action === 'reject') {
+                // Set gray styling for rejected work
+                newCard.classList.add('bg-red-50', 'border', 'border-red-200');
+                
+                // Add an indicator of the action
+                const rejectedIndicator = document.createElement('p');
+                rejectedIndicator.className = 'text-right text-red-600 font-semibold mt-2';
+                rejectedIndicator.textContent = 'Rejected';
+                newCard.appendChild(rejectedIndicator);
+                
+                // Move the card to the "Rejected" container
+                const rejectedContainer = document.getElementById('rejected-work-container');
+                rejectedContainer.appendChild(newCard);
+                rejectedContainer.classList.remove('hidden'); // Show the rejected section
+            }
+            
+            // Remove the original card from the "New" container
+            cardElement.remove();
+        }
+
+        // Function to hide the modal
+        function hideMessage() {
+            const modal = document.getElementById('messageModal');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <!-- Use Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Import the Inter font for a clean, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            /* Using a consistent placeholder URL for the background image */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom styles to handle the container and responsive behavior */
+        .app-container {
+            /* Removing fixed max-width/padding here and relying on Tailwind classes below for consistency */
+            max-width: 90%; 
+            margin: 0 auto;
+            border-radius: 0.5rem; /* Matches the rounded-lg class */
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            /* Added flex properties back to maintain internal layout */
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Adjusted .app-container for responsiveness (Matching max-w-2xl on larger screens) */
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 640px; /* max-w-2xl equivalent */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <!-- Updated container classes to match the consistent large size: py-12 px-16, max-w-2xl -->
+    <div class="app-container bg-white py-12 px-16 rounded-lg shadow-lg w-full max-w-2xl">
+        <!-- Back button - A good practice for navigation -->
+        <!-- Note: Back button is redundant if the home button is available, and removing it simplifies the layout. Removing the direct back button and relying on the footer navigation. -->
+
+        <header class="app-header flex items-center justify-center gap-4">
+            <!-- Updated logo to use a working placeholder URL -->
+            <img src="../images/logo.jpg" alt="Logo" class="w-20 h-20 rounded-full">
+            <h1 class="text-3xl font-bold text-gray-800">Notifications</h1>
+        </header>
+
+        <main class="notification-container w-full space-y-4">
+            <!-- Notification Item 1 -->
+            <div class="notification-item bg-gray-100 p-6 rounded-xl shadow-sm transition-all duration-200 hover:shadow-md hover:bg-gray-200 cursor-pointer">
+                <div class="notification-header flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg text-gray-900">NB Room 2-11 - Saturday, 2 PM</span>
+                    <i class="fas fa-check-circle text-green-500"></i>
+                </div>
+                <div class="notification-body text-gray-600 text-sm">
+                    You have been assigned a new cleaning task. Please check the details and confirm.
+                </div>
+            </div>
+
+            <!-- Notification Item 2 (Example of another notification) -->
+            <div class="notification-item bg-gray-100 p-6 rounded-xl shadow-sm transition-all duration-200 hover:shadow-md hover:bg-gray-200 cursor-pointer">
+                <div class="notification-header flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg text-gray-900">Task Update</span>
+                    <i class="fas fa-info-circle text-blue-500"></i>
+                </div>
+                <div class="notification-body text-gray-600 text-sm">
+                    The cleaning schedule for Block A has been updated.
+                </div>
+            </div>
+
+            <!-- Notification Item 3 (Example of an unread notification) -->
+            <div class="notification-item bg-gray-100 p-6 rounded-xl shadow-sm transition-all duration-200 hover:shadow-md hover:bg-gray-200 cursor-pointer relative">
+                <div class="notification-header flex items-center justify-between mb-2">
+                    <span class="font-bold text-lg text-gray-900">New Message</span>
+                    <span class="absolute top-2 right-2 h-3 w-3 bg-red-500 rounded-full animate-pulse"></span>
+                </div>
+                <div class="notification-body text-gray-600 text-sm">
+                    A new feedback message has been received from Room B-4.
+                </div>
+            </div>
+        </main>
+
+        <!-- The footer is now styled with Tailwind and placed inside the main container for better layout -->
+        <footer class="app-footer flex justify-around items-center pt-6 border-t border-gray-100">
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-arrow-left text-xl"></i>
+                <span class="text-xs">Back</span>
+            </a>
+            
+            <!-- Removed redundant back button link -->
+            <a href="../HTML/user_dashbord.html" class="flex flex-col items-center text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-home text-xl"></i>
+                <span class="text-xs">Home</span>
+            </a>
+           
+        </footer>
+    </div>
+</body>
+</html>

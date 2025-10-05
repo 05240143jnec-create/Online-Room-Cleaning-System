@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <link rel="stylesheet" href="booking_style.css">
+    <style>
+        body {
+    background-color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.booking-container {
+    width: 380px;
+    height: 100vh;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin: 0;
+    color: #333;
+}
+
+.history-button {
+    background-color: #d1d1d1;
+    color: #555;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.details-table {
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    color: #999;
+    font-weight: 500;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.column-name, .row-name { flex-basis: 30%; text-align: left; }
+.column-userid, .row-userid { flex-basis: 45%; text-align: left; }
+.column-status, .row-status { flex-basis: 25%; text-align: right; }
+
+.status-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.assigned {
+    background-color: #a5618b; /* Example color for Assigned */
+}
+
+.not-assigned {
+    background-color: #d89696; /* Example color for Not Assigned */
+}
+
+.back-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #20c997;
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <div class="header">
+            <h1>Booking Details</h1>
+            <button class="history-button">History</button>
+        </div>
+        <div class="details-table">
+            <div class="table-header">
+                <span class="column-name">Name</span>
+                <span class="column-userid">userid</span>
+                <span class="column-status">Status</span>
+            </div>
+            <div class="table-row">
+                <span class="row-name">Tashi</span>
+                <span class="row-userid">tashi@gamila.com</span>
+                <span class="row-status">
+                    <!-- <span class="status-tag assigned">Not assigned</span> -->
+                    <a href="../HTML/assign.html" class="status-tag assigned">Assigned</a>
+                </span>
+            </div>
+            <div class="table-row">
+                <span class="row-name">kinley</span>
+                <span class="row-userid">kinley@gamil.com</span>
+                <span class="row-status">
+                    <span class="status-tag assigned">Assigned</span>
+                </span>
+            </div>
+            <div class="table-row">
+                <span class="row-name">Dorji</span>
+                <span class="row-userid">dorji@gamil.com</span>
+                <span class="row-status">
+                    <span class="status-tag not-assigned">Not assign</span>
+                </span>
+            </div>
+        </div>
+        <a href="../HTML/Admin.html" class="back-button">Back</a>
+    </div>
+</body>
+</html>

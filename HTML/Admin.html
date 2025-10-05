@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+         body {
+            /* Using a consistent placeholder URL for the background image */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+
+        .admin-container {
+            width: 100%; /* Full width on small screens */
+            /* 2. INCREASED max-width for a slightly bigger size */
+            max-width: 550px; 
+            background-color: #ffffff; /* Switched to white for a cleaner look */
+            border-radius: 20px; /* Slightly more rounded card */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Softer shadow for website card look */
+            padding: 40px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 5px;
+        }
+
+        .logo-placeholder {
+            width: 100px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: 1px solid #ddd; /* Added light border for definition */
+        }
+
+        .app-logo {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .profile-avatar svg {
+            width: 35px;
+            height: 35px;
+        }
+
+        /* Centered greeting styles */
+        .greeting {
+            margin-bottom: 30px;
+            width: 100%; 
+            text-align: center; /* Center the text */
+        }
+
+        .greeting h1 {
+            font-size: 26px; /* Slightly larger heading for readability */
+            color: #333;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .button-grid {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 15px; 
+            padding: 0 30px; /* Added horizontal padding to buttons */
+        }
+
+        .admin-button, a.admin-button {
+            width: 100%;
+            padding: 18px 20px; /* Slightly more vertical padding */
+            border: none;
+            /* CHANGED border-radius to large value for pill shape */
+            border-radius: 9999px; 
+            background-color: #20c997; /* Teal color */
+            color: #fff;
+            font-size: 16px; /* Keeping size standard */
+            font-weight: 600; /* Medium bold */
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            /* Removed text-transform: uppercase; */ 
+            letter-spacing: 0; /* Resetting letter-spacing */
+        }
+
+        .admin-button:hover, a.admin-button:hover {
+            background-color: #1abc9c;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Media query for smaller screens, if needed for more specific tweaks */
+        @media (max-width: 600px) {
+            .admin-container {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+
+            .button-grid {
+                padding: 0;
+            }
+        }
+    </style>
+    <script>
+        function goToPage(url) {
+            // Note: This function is used for 'View Payment'
+            window.location.href = url;
+        }
+
+        function handleButtonClick(action) {
+            // Placeholder function for all other buttons
+            console.log(`Action requested: ${action}`);
+            // In a real app, you'd use window.location.href or a routing library here.
+        }
+    </script>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="header">
+            <div class="logo-placeholder">
+                <img src="../images/logo.jpg" alt="Project Logo" class="app-logo">
+            </div>
+            <div class="profile-avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+        <div class="greeting">
+            <h1>Hi, Admin</h1>
+        </div>
+        <div class="button-grid">
+            <button class="admin-button" onclick="handleButtonClick('Import User')">Import User</button>
+            <button class="admin-button" onclick="handleButtonClick('View Booking')">View Booking</button>
+            <button class="admin-button" onclick="goToPage('../HTML/paymentDetail.html')">View Payment</button> 
+            <button class="admin-button" onclick="handleButtonClick('Cleaner Details')">Cleaner Details</button>
+            <button class="admin-button" onclick="handleButtonClick('Feedback Details')">Feedback Details</button>
+            <button class="admin-button" onclick="handleButtonClick('Work Assignment')">Work Assignment</button>
+        </div>
+    </div>
+</body>
+</html>

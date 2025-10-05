@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- GLOBAL FIREBASE/AUTH SETUP ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+        let userId = null;
+        let isAuthReady = false;
+
+        async function initializeFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                await new Promise((resolve) => {
+                    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+                        if (user) {
+                            userId = user.uid;
+                        } else {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            userId = auth.currentUser.uid;
+                        }
+                        isAuthReady = true;
+                        unsubscribe();
+                        resolve();
+                    });
+                });
+
+                console.log("Firebase initialized. User ID:", userId);
+                await loadProfileData();
+            } catch (error) {
+                console.error("Firebase initialization or authentication failed:", error);
+            }
+        }
+
+        // --- FIRESTORE FUNCTIONS ---
+
+        // Helper to get the correct document reference path for private user data
+        function getProfileDocRef(uid) {
+            if (!db || !uid) return null;
+            // Path: /artifacts/{appId}/users/{userId}/profile/data
+            return doc(db, 'artifacts', appId, 'users', uid, 'profile', 'data');
+        }
+
+        /**
+         * Loads profile data and image URL from Firestore.
+         */
+        async function loadProfileData() {
+            if (!db || !userId) return;
+            const profileDocRef = getProfileDocRef(userId);
+            try {
+                const docSnap = await getDoc(profileDocRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    console.log("Profile data loaded from Firestore:", data);
+                    // Populate form fields
+                    document.getElementById('name').value = data.name || '';
+                    document.getElementById('userIdEmail').value = data.userIdEmail || '';
+                    document.getElementById('phoneNumber').value = data.phoneNumber || '';
+                    
+                    // Update profile image if a Base64 string is found
+                    if (data.profileImageBase64) {
+                        document.getElementById('profileImage').src = data.profileImageBase64;
+                    }
+
+                } else {
+                    console.log("No profile data found. Using default.");
+                }
+            } catch (e) {
+                console.error("Error loading document:", e);
+            }
+        }
+
+        /**
+         * Saves all profile data, including the Base64 image string, to Firestore.
+         */
+        async function saveProfileData(data) {
+            if (!db || !userId) return false;
+            const profileDocRef = getProfileDocRef(userId);
+
+            try {
+                // Merge new data with existing data to avoid overwriting fields
+                await setDoc(profileDocRef, data, { merge: true }); 
+                console.log("Profile saved successfully to Firestore.");
+                return true;
+            } catch (e) {
+                console.error("Error saving document:", e);
+                return false;
+            }
+        }
+
+        // Expose functions globally for use in the DOM event listeners
+        window.initializeFirebase = initializeFirebase;
+        window.saveProfileData = saveProfileData;
+        window.loadProfileData = loadProfileData;
+
+    </script>
+    <style>
+        /* Custom styles for the app container */
+        .profile-card {
+            width: 100%;
+            background-color: white;
+        }
+        
+        /* Custom styling for the input fields and Save button to match the image */
+        .profile-input {
+            background-color: #e6e0ff; /* Light purple */
+            color: #2c10e2; /* Darker text */
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            width: 100%;
+            border: 1px solid #c9c0ff;
+            outline: none;
+        }
+        .profile-input:focus {
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.5);
+        }
+
+        .save-button {
+            /* Removed width: 100% to fit content */
+            background-color: #b2f1e2; /* Light mint green */
+            color: #1e88e5; /* Blue text */
+            font-weight: 700;
+            font-size: 1.25rem;
+            padding: 1rem 4rem;
+            border-radius: 0.75rem;
+            transition: all 0.15s ease-in-out;
+            border: 1px solid #94d0c1;
+        }
+        .save-button:hover {
+            background-color: #94d0c1;
+        }
+
+        /* UNCHANGED BODY BACKGROUND */
+        body {
+            background-image: url('../images/jnecCampus.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* CSS FIX: Make the scrollable content area */
+        .scroll-content {
+            /* Keep a max height to demonstrate scrolling capability */
+            max-height: 400px; 
+            overflow-y: auto;
+            padding-right: 1.5rem; 
+            padding-left: 1rem;
+        }
+
+        /* The overall card size setup (for centering) */
+        .center-card {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Styling for the edit icon on the profile picture - Positioned bottom right */
+        .edit-profile-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 50%;
+            padding: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            z-index: 10;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans">
+
+    <div class="profile-card bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl relative center-card">
+        
+        <div class="bg-white pt-0 pb-1 px-0 flex justify-between items-start relative mb-4">
+            
+            <a href="../HTML/userprofile.html" class="text-gray-600 hover:text-gray-800 transition relative z-20 absolute top-0 left-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </a>
+            
+            <h1 class="text-xl font-bold text-gray-800 w-full text-center">
+                User Profile
+            </h1>
+        </div>
+
+        <div class="p-0 pb-0 text-center mt-6"> 
+
+            <div class="relative inline-block mb-10"> 
+                <img 
+                    id="profileImage"
+                    src="../images/profile.png" 
+                    alt="User Profile Picture" 
+                    class="h-40 w-40 object-cover rounded-full border-6 border-white shadow-xl"
+                >
+                <!-- This is the trigger for file upload -->
+                <div id="editProfileIcon" class="edit-profile-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Hidden file input for image selection -->
+            <input type="file" id="fileInput" accept="image/*" class="hidden">
+            
+            <form id="edit-profile-form">
+                
+                <div class="scroll-content space-y-6 text-left">
+                    
+                    <div>
+                        <label for="name" class="block text-gray-700 text-base font-semibold mb-2">Name</label>
+                        <input type="text" id="name" class="profile-input" placeholder="Username">
+                    </div>
+                    <div>
+                        <label for="userIdEmail" class="block text-gray-700 text-base font-semibold mb-2">User ID/Email</label>
+                        <input type="email" id="userIdEmail" class="profile-input" placeholder="0524.jnec@rub.edu.bt">
+                    </div>
+                    <div>
+                        <label for="phoneNumber" class="block text-gray-700 text-base font-semibold mb-2">Phone number</label>
+                        <input type="tel" id="phoneNumber" class="profile-input" placeholder="17######">
+                    </div>
+                    
+                    <!-- SAVE BUTTON MOVED INSIDE HERE -->
+                    <!-- Updated: Wrapped the button in a div with text-center and removed w-full from the button -->
+                    <div class="text-center"> 
+                        <a href="../HTML/userprofile.html" type="submit" id="saveButton" class="save-button mt-6 mb-4">
+                            Save
+                        </a>
+                    </div>
+                    
+                </div>
+                
+            </form>
+        </div>
+
+    </div>
+
+    <script type="module">
+        // --- Global state to hold new Base64 URL before saving ---
+        let newProfileImageBase64 = null;
+
+        // --- 1. PROFILE PICTURE CHANGE CODE ---
+        const fileInput = document.getElementById('fileInput');
+        const profileImage = document.getElementById('profileImage');
+        const editProfileIcon = document.getElementById('editProfileIcon');
+
+        // Trigger the file input when the edit icon is clicked
+        editProfileIcon.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Handle file selection and display the image
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        const base64Data = e.target.result;
+                        // 1. Update the profile picture source immediately for visual feedback
+                        profileImage.src = base64Data;
+                        
+                        // 2. Store the Base64 data in a temporary variable for later saving
+                        newProfileImageBase64 = base64Data; 
+
+                        console.log('New profile picture selected and ready to save.');
+                    };
+                    
+                    reader.readAsDataURL(file);
+                } else {
+                    console.error('Selected file is not an image.');
+                }
+            }
+        });
+
+        // --- 2. Save Functionality (Saves form data + image Base64 to Firestore) ---
+        document.getElementById('edit-profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            
+            const name = document.getElementById('name').value;
+            const userIdEmail = document.getElementById('userIdEmail').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            const profileData = {
+                name: name,
+                userIdEmail: userIdEmail,
+                phoneNumber: phoneNumber,
+            };
+            
+            // Check if a new image was selected and include it in the data to save
+            if (newProfileImageBase64) {
+                profileData.profileImageBase64 = newProfileImageBase64;
+                console.log("Saving new profile image data.");
+            }
+
+            // Save the data to Firestore
+            const success = await window.saveProfileData(profileData);
+            
+            if (success) {
+                // Since window.alert is disabled, log the success and navigate.
+                console.log('Profile saved successfully! Data:', profileData);
+                
+                // Clear the temporary variable after successful save
+                newProfileImageBase64 = null; 
+
+                // Navigate back to the view profile page 
+                window.location.href = '../HTML/userprofile.html';
+            } else {
+                console.error('Failed to save profile. Check console for Firebase errors.');
+            }
+        });
+
+        // --- 3. Run the setup when the window loads ---
+        window.onload = function() {
+            window.initializeFirebase();
+        };
+        
+        // --- Back arrow functionality ---
+        document.querySelector('.bg-white a').addEventListener('click', (e) => {
+            e.preventDefault(); 
+            window.history.back(); 
+        });
+    </script>
+</body>
+</html>
