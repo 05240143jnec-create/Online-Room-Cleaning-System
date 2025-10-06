@@ -1,0 +1,92 @@
+/* Full page background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('../Images/jnec.jpg') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Login Box */
+.login-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 50px 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  width: 350px;
+}
+
+/* Logo */
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  animation: spin 5s linear infinite;
+}
+
+/* Spin animation for logo */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Heading */
+.login-box h2 {
+  color:lightblue;
+  margin-bottom: 30px;
+}
+
+/* Form inputs */
+.login-box input[type="text"], 
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+
+/* Login button */
+.login-box .btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: aqua;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login-box .btn:hover {
+  background: rgba(0,0,0,0.5);
+}
+
+/* Forgot password link */
+.forgot-link {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9em;
+  display: inline-block;
+  margin-top: 15px;
+}
+.forgot-link:hover {
+  text-decoration: underline;
+  color: aqua;
+}

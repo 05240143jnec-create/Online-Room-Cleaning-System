@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Lock Screen Notification</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background-color: #000;
+            border-radius: 40px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lockscreen-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            background-image: url('../images/light.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .notch {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 30px;
+            background-color: black;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .lockscreen-content {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding-top: 50px;
+        }
+
+        .status-header {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .date-weather {
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .date-weather img {
+            height: 18px;
+        }
+
+        .time {
+            font-size: 4.5em;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .notification-card {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 10px 15px;
+            margin-top: 100px;
+            width: 80%;
+            max-width: 300px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .notification-header img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .notification-body {
+            font-size: 1em;
+            color: #555;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="lockscreen-background"></div>
+        <div class="notch"></div>
+
+        <div class="lockscreen-content">
+            <div class="status-header">
+                <div class="date-weather" id="dateWeather">
+                    <img src="../HTML/userlogin.html" alt="">
+                    <span>28°</span>
+                </div>
+                <div class="time" id="currentTime">
+                    </div>
+            </div>
+
+            <div class="notification-card">
+                <div class="notification-header">
+                    <img src="../images/logo.jpg" alt="App Icon"> 
+                    <span>Online Room Cleaning System</span>
+                </div>
+                <div class="notification-body">
+                    You have been assigned new work
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateWeatherElement = document.getElementById('dateWeather');
+            const currentTimeElement = document.getElementById('currentTime');
+
+            function updateTime() {
+                const now = new Date();
+                
+                // Get the day of the week and date
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const day = days[now.getDay()];
+                const date = now.getDate();
+                
+                // Format the time to 12-hour format
+                let hours = now.getHours();
+                const minutes = now.getMinutes();
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // The hour '0' should be '12'
+                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+                const formattedDate = `${day} ${date}`;
+                const formattedTime = `${hours}:${formattedMinutes}`;
+
+                dateWeatherElement.firstChild.textContent = formattedDate;
+                currentTimeElement.textContent = formattedTime;
+            }
+
+            // Update time immediately on page load
+            updateTime();
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+        });
+    </script>
+</body>
+</html>

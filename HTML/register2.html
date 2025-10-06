@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Step 2</title>
+    <!-- Use Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            /* NOTE: Using a placeholder URL for the background image for stability in the environment */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-underline {
+            border-bottom: 2px solid #e5e7eb;
+            transition: box-shadow 0.3s;
+        }
+        .input-underline:focus {
+            /* Keep border color fixed and add a box shadow for focus indication */
+            border-bottom-color: #e5e7eb; 
+            box-shadow: 0 2px 0 0 #2563eb;
+            outline: none;
+        }
+
+        .password-input-group {
+            position: relative;
+        }
+
+        /* Styles for the eye icon */
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* === Styles to remove browser default eye icon === */
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear {
+            display: none;
+        }
+        input[type="password"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        .back-btn-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+    <!-- Main Container: Increased max-w-lg to max-w-2xl, reduced rounding to rounded-lg, and adjusted padding to p-16 -->
+    <div class="container bg-white p-16 rounded-lg shadow-lg w-full max-w-2xl relative">
+        <!-- Back Button -->
+        <div class="back-btn-container">
+            <a href="register1.html" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center mb-6">
+            <!-- Replaced relative image path with placeholder URL for stability -->
+            <!-- Adjusted logo size for better balance in the larger container -->
+            <img src="../images/logo.jpg" alt="Main Logo" class="h-40 w-40 mb-10">
+            <!-- Increased heading size from text-3xl to text-4xl -->
+            <h2 class="text-4xl font-semibold text-center text-gray-800">Registration - Step 2</h2>
+        </div>
+        
+        <form id="registration-form" class="space-y-8">
+            <div class="password-input-group">
+                <!-- Increased input text size from text-lg to text-xl -->
+                <input type="password" id="password" placeholder="Create Password" required class="input-underline w-full p-2 pr-10 bg-transparent text-xl font-medium placeholder-gray-400">
+                <span class="password-toggle" id="password-toggle-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 20c-7 0-11-8-11-8s3-5 7.125-7.175m4.37-2.125A10.05 10.05 0 0112 4c7 0 11 8 11 8s-3 5-7.125 7.175M12 10a2 2 0 100 4 2 2 0 000-4z"></path>
+                        <path d="M1 1l22 22"></path>
+                    </svg>
+                </span>
+            </div>
+            
+            <div class="password-input-group">
+                <!-- Increased input text size from text-lg to text-xl -->
+                <input type="password" id="confirm-password" placeholder="Confirm Password" required class="input-underline w-full p-2 pr-10 bg-transparent text-xl font-medium placeholder-gray-400">
+                <span class="password-toggle" id="password-toggle-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 20c-7 0-11-8-11-8s3-5 7.125-7.175m4.37-2.125A10.05 10.05 0 0112 4c7 0 11 8 11 8s-3 5-7.125 7.175M12 10a2 2 0 100 4 2 2 0 000-4z"></path>
+                        <path d="M1 1l22 22"></path>
+                    </svg>
+                </span>
+            </div>
+            
+            <div class="terms-container flex items-center justify-start ml-4">
+                <!-- Increased checkbox size to h-5 w-5 -->
+                <input type="checkbox" id="terms-checkbox" required class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                <!-- Increased label text size to text-lg -->
+                <label for="terms-checkbox" class="ml-3 text-gray-700 text-lg">
+                    I agree to <span class="terms-link text-blue-600 font-bold cursor-pointer hover:underline">Terms & Conditions</span>
+                </label>
+            </div>
+            
+            <div id="error-message" class="text-red-500 text-center text-lg hidden"></div>
+
+            <div class="text-center mt-10">
+                <!-- Increased button size (py-4 px-10) and width (w-48) -->
+                <a href="../HTML/r success.html" type="submit" class="bg-blue-600 text-white font-bold py-4 px-10 rounded-full hover:bg-blue-700 transition-colors shadow-lg w-48 text-lg">
+                    Register</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registration-form');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const passwordToggle1 = document.getElementById('password-toggle-1');
+            const passwordToggle2 = document.getElementById('password-toggle-2');
+            const termsCheckbox = document.getElementById('terms-checkbox');
+            const errorMessage = document.getElementById('error-message');
+
+            const eyeOpenSVG = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-.168.618-.847 1.127-1.745 1.551M12 20s-4-5-4-8 4-8 4-8 4 5 4 8-4 8-4 8z"></path></svg>';
+            const eyeClosedSVG = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 20c-7 0-11-8-11-8s3-5 7.125-7.175m4.37-2.125A10.05 10.05 0 0112 4c7 0 11 8 11 8s-3 5-7.125 7.175M12 10a2 2 0 100 4 2 2 0 000-4z"></path><path d="M1 1l22 22"></path></svg>';
+
+            // Function to toggle password visibility
+            function togglePasswordVisibility(inputElement, toggleElement) {
+                const isPassword = inputElement.type === 'password';
+                inputElement.type = isPassword ? 'text' : 'password';
+                toggleElement.innerHTML = isPassword ? eyeOpenSVG : eyeClosedSVG;
+            }
+
+            // Attach listeners to both password fields
+            passwordToggle1.addEventListener('click', () => {
+                togglePasswordVisibility(passwordInput, passwordToggle1);
+            });
+            passwordToggle2.addEventListener('click', () => {
+                togglePasswordVisibility(confirmPasswordInput, passwordToggle2);
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+
+                // Reset error message
+                errorMessage.classList.add('hidden');
+                errorMessage.textContent = '';
+
+                if (password.length === 0 || confirmPassword.length === 0) {
+                    errorMessage.textContent = 'Please fill out both password fields.';
+                    errorMessage.classList.remove('hidden');
+                } else if (password !== confirmPassword) {
+                    errorMessage.textContent = 'Passwords do not match.';
+                    errorMessage.classList.remove('hidden');
+                } else if (!termsCheckbox.checked) {
+                    errorMessage.textContent = 'You must agree to the Terms & Conditions.';
+                    errorMessage.classList.remove('hidden');
+                } else {
+                    // All validations passed, proceed to the next page
+                    // window.location.href = 'r success.html';
+                    console.log('Registration complete. Redirecting to success page.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

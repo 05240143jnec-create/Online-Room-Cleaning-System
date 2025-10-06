@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f9fafb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --radius:14px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    body{margin:0;background:url(../images/jnec.jpg) no-repeat center center fixed;background-size:cover;}
+    .container{max-width:600px;margin:40px auto;padding:20px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 6px 20px rgba(8,15,30,0.06);padding:24px}
+    .avatar{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto;border:4px solid #e5e7eb;box-shadow:0 4px 14px rgba(0,0,0,0.05)}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    .name{text-align:center;font-size:22px;font-weight:700;margin-top:14px}
+    .role{text-align:center;color:var(--muted);margin-top:6px;font-size:14px}
+    .section{margin-top:20px}
+    .section h3{margin-bottom:8px;font-size:16px}
+    .detail{margin-bottom:10px}
+    .detail label{display:block;font-size:13px;color:var(--muted)}
+    .detail span{font-size:15px;font-weight:500}
+    .btn{border:0;padding:10px 14px;border-radius:8px;font-weight:600;cursor:pointer}
+    .btn.primary{background:var(--accent);color:white}
+    .btn.ghost{background:transparent;border:1px solid #d1d5db}
+    .actions{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+    .actions button{width:100%}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="avatar">
+        <img id="avatarImg" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Avatar">
+      </div>
+      <div class="name" id="nameText">John Doe</div>
+      <div class="role" id="roleText">Registered User</div>
+
+      <div class="section">
+        <h3>Details</h3>
+        <div class="detail"><label>Email</label><span id="emailText">johndoe@email.com</span></div>
+        <div class="detail"><label>Phone</label><span id="phoneText">+975 177123456</span></div>
+        <div class="detail"><label>Address</label><span id="addressText">Dewathang, Samdrupjonglhar</span></div>
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:10px;justify-content:center">
+        <form action="editProfile.html" method="get">
+            <button class="btn primary" id="editBtn">Edit Profile</button>
+        </form>
+      </div>
+
+      <div class="actions">
+        <form action="change_password.html" method="get" target="_self">
+            <button class="btn ghost" id="changePassword">Change Password</button>
+        </form>
+        <form action="login.html" method="get">
+            <button class="btn ghost" id="logout">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load profile info from localStorage
+    const saved = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (saved) {
+      document.getElementById("nameText").textContent = saved.name || "John Doe";
+      document.getElementById("emailText").textContent = saved.email || "johndoe@email.com";
+      
+      // Ensure phone number is Bhutan format (8 digits, starts with 17 or 77)
+      let phone = saved.phone || "177123456";
+      if(!/^1[7]\d{6}$|^7[7]\d{6}$/.test(phone)){
+        phone = "177123456"; // default valid number
+      }
+      document.getElementById("phoneText").textContent = `+975 ${phone}`;
+
+      document.getElementById("addressText").textContent = saved.address || "Dewathang, Samdrupjonglhar";
+
+      if (saved.pic) {
+        document.getElementById("avatarImg").src = saved.pic;
+      }
+    } else {
+      // No saved profile, set default Bhutan number
+      document.getElementById("phoneText").textContent = "+975 177123456";
+    }
+  </script>
+</body>
+</html>

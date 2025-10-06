@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            /* Using a placeholder image for the background for stability */
+            /* NOTE: Using a placeholder URL for the background image for stability in the environment */
+            background-image: url('../images/jnecCampus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 8px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Main Container: Increased max-w to 6xl for a bigger overall size -->
+    <div class="max-w-3xl mx-auto p-6 md:p-8 w-full"> 
+
+        <!-- Header -->
+        <header class="bg-white p-6 rounded-t-2xl shadow-sm border-b border-gray-100">
+            <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Payment Details</h1>
+            
+            <!-- Search Bar -->
+            <div class="relative w-full max-w-lg mx-auto">
+                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input id="search-input" type="text" placeholder="Search by name..." aria-label="Search payment details" class="w-full pl-12 pr-4 py-3 rounded-full bg-gray-100 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors duration-200">
+            </div>
+        </header>
+
+        <!-- Payment List -->
+        <main class="bg-white p-6 rounded-b-2xl shadow-sm overflow-y-auto" style="max-height: calc(100vh - 10rem);">
+            <div id="payment-list-container" class="space-y-6">
+
+                <!-- Payment Item 1: Placeholder image used for stability -->
+                <div class="payment-item flex flex-col sm:flex-row items-start space-x-0 sm:space-x-4 p-6 bg-gray-50 rounded-md shadow-sm" data-transaction-name="freelance work">
+                    <i class="fas fa-user-circle text-4xl text-blue-500 mt-1 mb-2 sm:mb-0"></i>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800">Dawa</h3>
+                        <p class="payment-date text-sm text-gray-500 mb-4"><strong class="font-medium">Date:</strong> 2024-05-15</p>
+                        <img src="../images/mbob1.jpg" alt="Payment screenshot" class="w-full md:w-96 mx-auto rounded-lg shadow-sm">
+                    </div>
+                </div>
+
+                <!-- Payment Item 2: Placeholder image used for stability -->
+                <div class="payment-item flex flex-col sm:flex-row items-start space-x-0 sm:space-x-4 p-6 bg-gray-50 rounded-md shadow-sm" data-transaction-name="graphic design">
+                    <i class="fas fa-user-circle text-4xl text-green-500 mt-1 mb-2 sm:mb-0"></i>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800">Ritu</h3>
+                        <p class="payment-date text-sm text-gray-500 mb-4"><strong class="font-medium">Date:</strong> 2024-04-20</p>
+                        <img src="../images/bnbl.jpg" alt="Payment screenshot" class="w-full md:w-96 mx-auto rounded-lg shadow-sm">
+                    </div>
+                </div>
+
+                <!-- Payment Item 3: Placeholder image used for stability -->
+                <div class="payment-item flex flex-col sm:flex-row items-start space-x-0 sm:space-x-4 p-6 bg-gray-50 rounded-md shadow-sm" data-transaction-name="website development">
+                    <i class="fas fa-user-circle text-4xl text-purple-500 mt-1 mb-2 sm:mb-0"></i>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800">Pema</h3>
+                        <p class="payment-date text-sm text-gray-500 mb-4"><strong class="font-medium">Date:</strong> 2024-03-10</p>
+                        <img src="../images/dk.jpg" alt="Payment screenshot" class="w-full md:w-96 mx-auto rounded-lg shadow-sm">
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Close Button -->
+        <div class="flex justify-center mt-6">
+            <!-- Ensure this link points to a valid path if needed, currently set to history.back() for functionality -->
+            <a href="../HTML/user_dashbord.html" onclick="history.back()" class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-200">
+                Close
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('keyup', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const paymentItems = document.querySelectorAll('.payment-item');
+
+            paymentItems.forEach(item => {
+                // Search now considers the name in the <h3> tag
+                const name = item.querySelector('h3').textContent.toLowerCase(); 
+                if (name && name.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
